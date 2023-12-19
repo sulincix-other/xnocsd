@@ -3,6 +3,7 @@
 #include <X11/Xlib.h>
 #include <dlfcn.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 // Function pointer for the real XChangeProperty
 typedef int (*XChangeProperty_t)(Display*, Window, Atom, Atom, int, int, const unsigned char*, int);
@@ -23,4 +24,12 @@ int XChangeProperty(Display *display, Window w, Atom property, Atom type,
     }
 
     return real_XChangeProperty(display, w, property, type, format, mode, data, nelements);
+}
+
+bool gdk_screen_is_composited(){
+    return false;
+}
+
+bool gdk_display_is_composited(){
+    return false;
 }
