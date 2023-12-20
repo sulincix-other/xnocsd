@@ -26,6 +26,28 @@ int XChangeProperty(Display *display, Window w, Atom property, Atom type,
     return real_XChangeProperty(display, w, property, type, format, mode, data, nelements);
 }
 
+// Function pointer for the real XGetSelectionOwner
+typedef Window (*XGetSelectionOwner_t)(Display*, Atom);
+
+// Real XGetSelectionOwner function
+static XGetSelectionOwner_t real_XGetSelectionOwner = NULL;
+
+Window XGetSelectionOwner(Display *dpy, Atom selection){
+    char prop_name[20];
+    snprintf(prop_name, 20, "_NET_WM_CM_S%d", XDefaultScreen(dpy));
+    Atom prop_atom = XInternAtom(dpy, prop_name, False);
+    printf("%d %lu %lu\n", XDefaultScreen(dpy), prop_atom, selection);
+    if (prop_atom == selection){
+        return NULL;
+    }
+    // Call the real XChangeProperty function
+    if (!real_XGetSelectionOwner) {
+        real_XGetSelectionOwner = (XGetSelectionOwner_t)dlsym(RTLD_NEXT, "XGetSelectionOwner");
+    }
+    return real_XGetSelectionOwner(dpy, selection);
+
+}
+
 bool gdk_screen_is_composited(){
     return false;
 }
