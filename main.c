@@ -37,7 +37,7 @@ Window XGetSelectionOwner(Display *dpy, Atom selection){
     snprintf(prop_name, 20, "_NET_WM_CM_S%d", XDefaultScreen(dpy));
     Atom prop_atom = XInternAtom(dpy, prop_name, False);
     if (prop_atom == selection){
-        return NULL;
+        return (Window)NULL;
     }
     // Call the real XChangeProperty function
     if (!real_XGetSelectionOwner) {

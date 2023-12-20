@@ -1,6 +1,11 @@
+headerbar,
+csd,
+csd-solid,
+window,
 decoration {
   box-shadow: none;
   padding: 0px;
   margin: 0px;
-  background: black;
+  border-radius: 0px;
+  border: none;
 }
