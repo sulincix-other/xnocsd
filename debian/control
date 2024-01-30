@@ -1,0 +1,13 @@
+Source: xnocsd
+Section: utils
+Priority: optional
+Maintainer: Ali Riza KESKIN <ali.riza.keskin@pardus.org.tr>
+Build-Depends: make, libx11-dev
+Standards-Version: 4.3.0
+Homepage: https://pardus.org.tr
+
+Package: xnoscd
+Architecture: any
+Depends: ${misc:Depends}, libc6, libx11
+Description: libX11 based nocsd
+ Disable client side decoration using libX11.
