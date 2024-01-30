@@ -6,7 +6,7 @@ Build-Depends: make, libx11-dev
 Standards-Version: 4.3.0
 Homepage: https://pardus.org.tr
 
-Package: xnoscd
+Package: xnocsd
 Architecture: any
 Depends: ${misc:Depends}, libc6, libx11
 Description: libX11 based nocsd
