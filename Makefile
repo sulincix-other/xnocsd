@@ -5,5 +5,6 @@ build:
 install:
 	mkdir -p $(DESTDIR)/usr/libexec/
 	install libXnocsd.so $(DESTDIR)/usr/libexec/libXnocsd.so
+	install xnocsd.xinit $(DESTDIR)/etc/X11/xinit/xinitrc.d/52-xnocsd
 clean:
 	rm -f libXnocsd.so

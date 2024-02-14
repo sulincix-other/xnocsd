@@ -1,4 +1,4 @@
 #!/bin/sh
 if [ -n "$STARTUP" ]; then
-      STARTUP="env LD_PRELOAD=/usr/libexec/libXnocsd.so${LD_PRELOAD:+:$LD_PRELOAD}" $STARTUP"
+      STARTUP="env LD_PRELOAD=/usr/libexec/libXnocsd.so${LD_PRELOAD:+:$LD_PRELOAD} $STARTUP"
 fi

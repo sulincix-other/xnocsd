@@ -6,4 +6,6 @@
 override_dh_install:
 	make install DESTDIR=debian/xnocsd
 	mkdir -p debian/xnocsd/etc/X11/Xsession.d/
+	# debian stuff
+	rm -rf debian/xnocsd/etc/X11/xinit
 	install xnocsd.xinit debian/xnocsd/etc/X11/Xsession.d/52-xnocsd
