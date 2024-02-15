@@ -77,6 +77,5 @@ void gtk_header_bar_set_show_close_button(void* header, bool settings){
         real_gtk_header_bar_set_show_close_button = 
                         (gtk_header_bar_set_show_close_button_t)dlsym(RTLD_NEXT, "gtk_header_bar_set_show_close_button");
     }
-    printf("amogus\n");
     real_gtk_header_bar_set_show_close_button(header, false);
 }
