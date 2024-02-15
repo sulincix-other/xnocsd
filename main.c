@@ -58,6 +58,7 @@ bool gdk_display_is_composited(){
 
 typedef void (*gtk_header_bar_set_show_title_buttons_t)(void* header, bool settings);
 typedef void (*gtk_header_bar_set_show_close_button_t)(void* header, bool settings);
+typedef void (*adw_header_bar_set_show_start_title_buttons_t)(void* header, bool settings);
 
 
 // block window control show (gtk4)
@@ -70,6 +71,15 @@ void gtk_header_bar_set_show_title_buttons(void* header, bool settings){
     real_gtk_header_bar_set_show_title_buttons(header, false);
 }
 
+// block window control show (libadwaita)
+static adw_header_bar_set_show_start_title_buttons_t real_adw_header_bar_set_show_start_title_buttons = NULL;
+void adw_header_bar_set_show_start_title_buttons(void* header, bool settings){
+    if(!real_adw_header_bar_set_show_start_title_buttons){
+        real_adw_header_bar_set_show_start_title_buttons = 
+            (adw_header_bar_set_show_start_title_buttons_t)dlsym(RTLD_NEXT, "adw_header_bar_set_show_start_title_buttons");
+    }
+    real_adw_header_bar_set_show_start_title_buttons(header, false);
+}
 // block window control show (gtk3)
 static gtk_header_bar_set_show_close_button_t real_gtk_header_bar_set_show_close_button = NULL;
 void gtk_header_bar_set_show_close_button(void* header, bool settings){
