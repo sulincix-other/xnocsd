@@ -15,11 +15,11 @@ static XChangeProperty_t real_XChangeProperty = NULL;
 int XChangeProperty(Display *display, Window w, Atom property, Atom type,
                     int format, int mode, const unsigned char *data, int nelements) {
     int prop = XInternAtom(display, "_MOTIF_WM_HINTS", False);
-    if (property == prop ) {
+    if (property == prop && getenv("CSD") == NULL) {
         return 0;  // Block the change by returning 0
     }
     // Call the real XChangeProperty function
-    if (!real_XChangeProperty && getenv("CSD") == NULL) {
+    if (!real_XChangeProperty) {
         real_XChangeProperty = (XChangeProperty_t)dlsym(RTLD_NEXT, "XChangeProperty");
     }
 
