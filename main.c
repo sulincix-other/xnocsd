@@ -55,3 +55,28 @@ bool gdk_screen_is_composited(){
 bool gdk_display_is_composited(){
     return false;
 }
+
+typedef void (*gtk_header_bar_set_show_title_buttons_t)(void* header, bool settings);
+typedef void (*gtk_header_bar_set_show_close_button_t)(void* header, bool settings);
+
+
+// block window control show (gtk4)
+static gtk_header_bar_set_show_title_buttons_t real_gtk_header_bar_set_show_title_buttons = NULL;
+void gtk_header_bar_set_show_title_buttons(void* header, bool settings){
+    if(!real_gtk_header_bar_set_show_title_buttons){
+        real_gtk_header_bar_set_show_title_buttons = 
+            (gtk_header_bar_set_show_title_buttons_t)dlsym(RTLD_NEXT, "gtk_header_bar_set_show_title_buttons");
+    }
+    real_gtk_header_bar_set_show_title_buttons(header, false);
+}
+
+// block window control show (gtk3)
+static gtk_header_bar_set_show_close_button_t real_gtk_header_bar_set_show_close_button = NULL;
+void gtk_header_bar_set_show_close_button(void* header, bool settings){
+    if(!real_gtk_header_bar_set_show_close_button){
+        real_gtk_header_bar_set_show_close_button = 
+                        (gtk_header_bar_set_show_close_button_t)dlsym(RTLD_NEXT, "gtk_header_bar_set_show_close_button");
+    }
+    printf("amogus\n");
+    real_gtk_header_bar_set_show_close_button(header, false);
+}
